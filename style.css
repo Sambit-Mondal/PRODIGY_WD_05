@@ -8,21 +8,53 @@
 }
 
 body {
+  background: url('Images/Background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.heading {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: seagreen;
+  flex-direction: column;
+  padding-top: 25px;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 0;
+}
+
+.heading h2 {
+  color: lightblue;
+}
+
+hr {
+  font-size: 20px;
+  color: lightblue;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 83vh;
+  overflow: hidden;
 }
 
 .container {
   position: relative;
   width: 400px;
-  height: 555px;
-  background: purple;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 20px;
   color: white;
+  transition: height .6s ease;
 }
 
 .search-box {
@@ -78,6 +110,42 @@ body {
   margin: 40px 0;
 }
 
+.weather-box,
+.weather-details,
+.not-found {
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.weather-box.active,
+.weather-details.active,
+.not-found.active {
+  visibility: visible;
+}
+
+.weather-box .box,
+.not-found .box {
+  transform: translateY(-100%);
+}
+
+.weather-box.active .box,
+.not-found.active .box {
+  transform: translateY(0%);
+  transition: transform 1s ease;
+  transition-delay: .6s;
+}
+
+.weather-box .box .info-weather {
+  transform: translateY(-120%);
+}
+
+.container.active .weather-box .box .info-weather,
+.container.active .weather-details .humidity .info-humidity,
+.container.active .weather-details .wind .info-wind {
+  transform: translateY(0%);
+  transition: transform 1s ease;
+}
+
 .weather-box img {
   width: 60%;
 }
@@ -100,4 +168,136 @@ body {
   font-size: 22px;
   font-weight: 500;
   text-transform: capitalize;
+}
+
+.weather-details {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+}
+
+.weather-details .humidity,
+.weather-details .wind {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  transform: translateY(-100%);
+}
+
+.weather-details.active .humidity,
+.weather-details.active .wind {
+  transform: translateY(0%);
+  transition: transform 1s ease;
+  transition-delay: 1.2s;
+}
+
+.weather-details .humidity .info,
+.weather-details .wind .info-wind {
+  transform: translateY(-100%);
+  overflow: hidden;
+}
+
+.weather-details .humidity {
+  padding-left: 20px;
+  justify-content: flex-start;
+}
+
+.weather-details .wind {
+  padding-right: 20px;
+  justify-content: flex-end;
+}
+
+.weather-details i {
+  font-size: 56px;
+  margin-right: 10px;
+}
+
+.weather-details span {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.weather-details p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.not-found {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 110px;
+}
+
+.not-found img {
+  width: 65%;
+}
+
+.not-found p {
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.city-hide {
+  display: none;
+}
+
+#clone-info-weather,
+#clone-info-humidity,
+#clone-info-wind {
+  position: absolute;
+  transform: translateY(-100%);
+}
+
+#clone-info-weather .weather {
+  transform: translateY(120%);
+  transition: transform 1s ease, opacity 0s;
+  transition-delay: 0s, 2s;
+}
+
+.weather-box:not(.active) #clone-info-weather .weather {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.active-clone#clone-info-weather .weather {
+  transform: translateY(0%);
+}
+
+#clone-info-humidity span,
+#clone-info-wind span {
+  transform: translateY(150%);
+  transition: transform 1s ease;
+}
+
+.active-clone#clone-info-humidity span,
+.active-clone#clone-info-wind span {
+  transform: translateY(0%);
+}
+
+.footer-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-bottom a {
+  text-decoration: none;
+}
+
+.footer-bottom p {
+  font-size: 15px;
+  color: white;
+}
+
+.footer-bottom p:hover {
+  color: aqua;
 }
